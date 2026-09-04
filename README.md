@@ -42,7 +42,8 @@ bookmark-nav/
 ├── public/
 │   └── favicon.svg                # 浏览器标签页小图标（SVG，任意尺寸不糊）
 ├── scripts/
-│   └── generate-data.mjs          # 数据生成脚本：把 8 个 HTML 导航抓成一份 bookmarks.json（按 URL 去重）
+│   ├── generate-data.mjs          # 数据生成脚本：把 HTML 导航抓成 bookmarks.json（按 URL 去重）
+│   └── merge-nav.mjs              # + 额外导航源合并：可合并“Netscape 书签 HTML”和“JSON 分类”源，支持任意多级分类，自动去重（npm run data:merge）
 ├── src/
 │   ├── main.tsx                   # 程序入口：把 <App/> 挂载到 #root，并引入全局样式
 │   ├── App.tsx                    # 主界面：页头、搜索栏、分组切换、分类网格、页脚、置顶按钮的“总调度”

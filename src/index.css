@@ -288,7 +288,7 @@ body {
   height: 40px;
   border-radius: 11px;
   flex-shrink: 0;
-  background: var(--surface-2);
+  background: transparent; /* 真实网站 logo 不加填充矩形底 */
   display: flex;
   align-items: center;
   justify-content: center;

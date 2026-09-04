@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "data": "node scripts/generate-data.mjs",
+    "data:merge": "node scripts/merge-nav.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview"

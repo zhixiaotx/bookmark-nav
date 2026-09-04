@@ -38,6 +38,11 @@ const GROUP_LABELS: Record<string, string> = { all: '全部站点' }
 
 export default function App() {
   const allLeaves = useMemo(() => flattenLeaves(INITIAL_BOOKMARKS), [])
+  const categoryCount = useMemo(() => {
+    const walk = (nodes: BookmarkItem[]): number =>
+      nodes.reduce((a, nd) => a + (nd.children && nd.children.length ? 1 + walk(nd.children) : 0), 0)
+    return INITIAL_BOOKMARKS.reduce((a, g) => a + walk(g.children || []), 0)
+  }, [])
 
   const [dark, setDark] = useState<boolean>(() => {
     const saved = localStorage.getItem('theme')
@@ -91,7 +96,7 @@ export default function App() {
             <div className="brand-logo">🧭</div>
             <div className="brand-text">
               <h1>导航聚合站</h1>
-              <p>共 {allLeaves.length} 个精选站点 · 58 个分类</p>
+              <p>共 {allLeaves.length} 个精选站点 · {categoryCount} 个分类</p>
             </div>
           </div>
           <SearchBar
