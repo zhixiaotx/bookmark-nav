@@ -5,6 +5,13 @@ import Logo, { hostnameOf } from './components/Logo'
 import BackToTop from './components/BackToTop'
 import ThemeToggle from './components/ThemeToggle'
 
+// 统计某节点下的叶子站点总数（递归，支持任意多级）
+function countLeaves(node?: BookmarkItem): number {
+  if (!node) return 0
+  if (!node.children || !node.children.length) return node.url ? 1 : 0
+  return node.children.reduce((a, c) => a + countLeaves(c), 0)
+}
+
 // ---------- 工具 ----------
 function flattenLeaves(items: BookmarkItem[]): BookmarkItem[] {
   const out: BookmarkItem[] = []
@@ -145,10 +152,10 @@ export default function App() {
                 <section className="group" key={group.name}>
                   <h2 className="group-title">
                     <span className="group-name">{group.name}</span>
-                    <span className="group-count">{(group.children || []).reduce((a, c) => a + (c.children ? c.children.length : 0), 0)} 站点</span>
+                    <span className="group-count">{countLeaves(group)} 站点</span>
                   </h2>
-                  {group.children?.map((cat) => (
-                    <Category key={cat.name} cat={cat} />
+                  {group.children?.map((child, i) => (
+                    <CategoryNode key={(child.id || child.name) + i} node={child} depth={1} />
                   ))}
                 </section>
               ))}
@@ -221,20 +228,33 @@ function SearchBar(props: {
   )
 }
 
-// ---------- 分类卡片组 ----------
-function Category({ cat }: { cat: BookmarkItem }) {
-  const items = cat.children || []
+// ---------- 递归分类卡片组 ----------
+// 支持任意多级分类：有 url 的渲染为站点卡片，有 children 的自动展开为子分类并缩进固定在父分类下方
+function CategoryNode({ node, depth = 1 }: { node: BookmarkItem; depth?: number }) {
+  const kids = node.children || []
+
+  // 叶子站点
+  if (!kids.length) return node.url ? <SiteCard item={node} /> : null
+
+  const leaves = kids.filter((c) => !c.children || !c.children.length)
+  const subs = kids.filter((c) => c.children && c.children.length)
+
   return (
-    <div className="category">
+    <div className={`category ${depth > 1 ? 'subcategory' : ''}`}>
       <h3 className="cat-title">
-        {cat.name}
-        <span className="cat-count">{items.length}</span>
+        <span className="cat-name">{node.name}</span>
+        <span className="cat-count">{countLeaves(node)}</span>
       </h3>
-      <div className="grid">
-        {items.map((it) => (
-          <SiteCard key={(it.id || it.url) + it.name} item={it} />
-        ))}
-      </div>
+      {leaves.length > 0 && (
+        <div className="grid">
+          {leaves.map((s) => (
+            <SiteCard key={(s.id || s.url) + s.name} item={s} />
+          ))}
+        </div>
+      )}
+      {subs.map((sc, i) => (
+        <CategoryNode key={(sc.id || sc.name) + i} node={sc} depth={depth + 1} />
+      ))}
     </div>
   )
 }

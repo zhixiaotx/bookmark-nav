@@ -247,6 +247,19 @@ body {
   padding: 1px 9px;
   border-radius: 999px;
 }
+/* 子分类：缩进固定在父分类下方，层级越深缩进越多 */
+.category.subcategory {
+  border-left: 3px solid var(--border);
+  padding-left: 14px;
+  margin: 4px 0 4px 4px;
+}
+.category.subcategory .cat-title {
+  font-size: 0.92rem;
+  color: var(--text-2);
+  border-bottom-color: var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
 
 /* ---------- Grid & Card ---------- */
 .grid {
