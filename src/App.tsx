@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { BookmarkItem, SearchEngine } from './types'
 import { INITIAL_BOOKMARKS, SEARCH_ENGINES, LIGHT_THEME, DARK_THEME } from './lib/constants'
-import Logo, { hostnameOf } from './components/Logo'
+import Logo from './components/Logo'
 import BackToTop from './components/BackToTop'
 import ThemeToggle from './components/ThemeToggle'
 
@@ -90,45 +90,47 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <div className="header-inner">
-          <div className="brand">
-            <div className="brand-logo">🧭</div>
-            <div className="brand-text">
-              <h1>导航聚合站</h1>
-              <p>共 {allLeaves.length} 个精选站点 · {categoryCount} 个分类</p>
+      <div className="sticky-top">
+        <header className="header">
+          <div className="header-inner">
+            <div className="brand">
+              <div className="brand-logo">🧭</div>
+              <div className="brand-text">
+                <h1>导航聚合站</h1>
+                <p>共 {allLeaves.length} 个精选站点 · {categoryCount} 个分类</p>
+              </div>
             </div>
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
+              engine={engine}
+              onEngineChange={setEngineValue}
+              onSubmit={onSearchSubmit}
+              isExternal={isExternal}
+            />
+            <ThemeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
           </div>
-          <SearchBar
-            query={query}
-            setQuery={setQuery}
-            engine={engine}
-            onEngineChange={setEngineValue}
-            onSubmit={onSearchSubmit}
-            isExternal={isExternal}
-          />
-          <ThemeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
-        </div>
-      </header>
+        </header>
 
-      {/* 分组切换 */}
-      <nav className="group-tabs">
-        <button
-          className={activeGroup === 'all' ? 'active' : ''}
-          onClick={() => setActiveGroup('all')}
-        >
-          {GROUP_LABELS.all}
-        </button>
-        {groups.map((g) => (
+        {/* 分组切换（固定到头部，不随内容滚动） */}
+        <nav className="group-tabs">
           <button
-            key={g.name}
-            className={activeGroup === g.name ? 'active' : ''}
-            onClick={() => setActiveGroup(g.name)}
+            className={activeGroup === 'all' ? 'active' : ''}
+            onClick={() => setActiveGroup('all')}
           >
-            {g.name}
+            {GROUP_LABELS.all}
           </button>
-        ))}
-      </nav>
+          {groups.map((g) => (
+            <button
+              key={g.name}
+              className={activeGroup === g.name ? 'active' : ''}
+              onClick={() => setActiveGroup(g.name)}
+            >
+              {g.name}
+            </button>
+          ))}
+        </nav>
+      </div>
 
       <main className="container">
         {searching ? (
@@ -266,13 +268,11 @@ function CategoryNode({ node, depth = 1 }: { node: BookmarkItem; depth?: number 
 
 // ---------- 单个站点卡片 ----------
 function SiteCard({ item }: { item: BookmarkItem }) {
-  const host = item.url ? hostnameOf(item.url) : ''
   return (
     <a className="card" href={item.url} target="_blank" rel="noopener noreferrer">
       <Logo item={item} />
       <div className="card-body">
         <div className="card-name">{item.name}</div>
-        <div className="card-url">{host}</div>
         {item.desc && <div className="card-intro">{item.desc}</div>}
         {item.tags && item.tags.length > 0 && (
           <div className="card-tags">

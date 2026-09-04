@@ -172,11 +172,20 @@ body {
   transform: scale(1.05);
 }
 
+/* ---------- Sticky top（头部 + 分类栏整体固定，不随内容滚动） ---------- */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+}
+
 /* ---------- Group tabs ---------- */
 .group-tabs {
   max-width: 1280px;
-  margin: 18px auto 0;
-  padding: 0 20px;
+  margin: 0 auto;
+  padding: 8px 20px 14px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
