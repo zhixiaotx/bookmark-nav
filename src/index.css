@@ -49,7 +49,17 @@ body {
 }
 
 .app {
-  padding-bottom: 40px;
+  padding-bottom: 56px;
+}
+
+/* 顶部独立容器（搜索栏 + 分类栏）sticky 固定，不随内容滚动 */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 95;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* ---------- Header ---------- */
@@ -172,124 +182,77 @@ body {
   transform: scale(1.05);
 }
 
-/* ---------- Sticky top（头部 + 分类栏整体固定，不随内容滚动） ---------- */
-.sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--bg);
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
-}
-
-/* ---------- Group tabs ---------- */
-.group-tabs {
+/* ---------- 分层分类栏（与参考页一致：多级各自成一行，全部固定在顶部、自动换行） ---------- */
+.bar {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 8px 20px 14px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  background: var(--bg);
+  transition: background 0.3s;
 }
-.group-tabs button {
+.bar-1 {
+  padding: 8px 20px 4px;
+}
+.bar-2,
+.bar-3,
+.bar-4 {
+  padding: 0 20px 4px;
+}
+.cat-pill {
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text-2);
-  padding: 7px 16px;
+  padding: 6px 13px;
   border-radius: 999px;
-  font-size: 0.85rem;
   cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
   transition: all 0.2s;
+  user-select: none;
 }
-.group-tabs button:hover {
+.cat-pill:hover {
   border-color: var(--primary);
   color: var(--primary);
 }
-.group-tabs button.active {
+.cat-pill.active {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
-}
-
-/* ---------- 固定栏内的分类导航（只显示分类，多列排布） ---------- */
-.category-bar {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px 14px;
-  max-height: min(58vh, 480px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-/* 关键：所有同级分类 pill 横向多列排布、自动换行，而不是一行一个 */
-.category-bar-inner,
-.nav-children {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-start;
-}
-.nav-group {
-  width: 100%;
-  margin-bottom: 6px;
-}
-.nav-group-title {
-  display: block;
-  font-size: 0.72rem;
   font-weight: 600;
+}
+.cat-pill .n {
+  opacity: 0.65;
+  font-size: 11px;
+  margin-left: 3px;
+}
+.sub-pill {
+  border: 1px dashed var(--border);
+  background: transparent;
   color: var(--text-3);
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  margin: 2px 0 6px;
-}
-.nav-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 100%;
-}
-.nav-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-2);
-  padding: 7px 13px;
+  padding: 4px 12px;
   border-radius: 999px;
-  font-size: 0.83rem;
   cursor: pointer;
-  transition: all 0.2s;
+  font-size: 12px;
   font-family: inherit;
-  font-weight: 500;
+  transition: all 0.2s;
+  user-select: none;
 }
-.nav-pill:hover {
+.sub-pill:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.sub-pill.active {
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
   border-color: var(--primary);
   color: var(--primary);
+  font-weight: 600;
 }
-.nav-pill.open {
-  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.nav-caret {
-  font-size: 0.7rem;
-  opacity: 0.75;
-  transition: transform 0.2s;
-}
-.nav-pill.open .nav-caret {
-  transform: rotate(90deg);
-}
-.nav-count {
-  font-size: 0.66rem;
-  background: color-mix(in srgb, var(--primary) 14%, transparent);
-  color: var(--primary);
-  padding: 1px 8px;
-  border-radius: 999px;
-}
-/* 子分类缩进 + 竖线，视觉上归到父级下方 */
-.nav-children {
-  margin: 8px 0 2px 18px;
-  padding-left: 14px;
-  border-left: 2px dashed var(--border);
+.sub-pill .n {
+  opacity: 0.65;
+  font-size: 11px;
+  margin-left: 3px;
 }
 
 /* ---------- Container / group ---------- */
@@ -297,6 +260,18 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding: 22px 20px;
+}
+.main-scroll .container {
+  padding: 14px 20px 30px;
+}
+.crumb {
+  font-size: 12.5px;
+  color: var(--text-3);
+  margin: 14px 0 4px;
+}
+.crumb b {
+  color: var(--primary);
+  font-weight: 600;
 }
 .group-title {
   display: flex;
@@ -590,21 +565,24 @@ body {
     height: 40px;
   }
 
-  .group-tabs {
-    padding: 0 12px;
-    margin-top: 14px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .bar-1,
+  .bar-2,
+  .bar-3,
+  .bar-4 {
+    padding-left: 12px;
+    padding-right: 12px;
   }
-  .group-tabs::-webkit-scrollbar {
-    display: none;
+  .cat-pill {
+    padding: 5px 10px;
+    font-size: 12px;
   }
-  .group-tabs button {
-    flex: 0 0 auto;
-    padding: 7px 14px;
-    font-size: 0.82rem;
+  .sub-pill {
+    padding: 3px 9px;
+    font-size: 11px;
+  }
+  .crumb {
+    margin-top: 8px;
+    font-size: 11px;
   }
 
   .container {
