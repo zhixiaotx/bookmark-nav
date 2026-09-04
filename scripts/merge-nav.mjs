@@ -153,8 +153,8 @@ function dedupTree(nodes) {
   return out
 }
 
-function makeGroup(name, children) {
-  const kept = dedupTree(children)
+function makeGroup(name, children, dedup = true) {
+  const kept = dedup ? dedupTree(children) : children
   if (!kept.length) return null
   return { name, isFolder: true, children: kept }
 }
@@ -171,7 +171,7 @@ for (const [file, label] of JSON_SOURCES) {
   }
   const raw = JSON.parse(fs.readFileSync(full, 'utf8'))
   const children = (raw.categories || []).map(convertJsonNode)
-  const g = makeGroup(label, children)
+  const g = makeGroup(label, children, false)
   if (g) {
     newGroups.push(g)
     existingNames.add(g.name)
@@ -209,4 +209,4 @@ fs.mkdirSync(OUT_DIR, { recursive: true })
 fs.writeFileSync(DATA_FILE, JSON.stringify(output, null, 2), 'utf8')
 console.log(`已合并 → ${DATA_FILE}`)
 console.log(`原有分组: ${existing.length}，本次新增分组: ${newGroups.map((g) => g.name).join(' / ') || '无'}`)
-console.log(`现共分组: ${output.length}，新增站点: ${totalAdded}，去重移除: ${deduped}`)
+console.log(`现共分组: ${output.length}，新增站点: ${totalAdded}，去重移除: ${deduped}（三个用药导航源未去重）`)
