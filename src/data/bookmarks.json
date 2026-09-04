@@ -29064,5 +29064,190 @@
         ]
       }
     ]
+  },
+  {
+    "name": "学术导航",
+    "isFolder": true,
+    "children": [
+      {
+        "name": "🎓 谷歌学术",
+        "children": [
+          {
+            "name": "学术官网",
+            "url": "https://scholar.google.com/"
+          }
+        ]
+      },
+      {
+        "name": "⬇ 下载文献",
+        "children": [
+          {
+            "name": "Sci-Hub①",
+            "url": "https://www.sci-hub.ru/",
+            "desc": "免费下载文献"
+          },
+          {
+            "name": "Sci-Hub②",
+            "url": "https://www.sci-hub.se/",
+            "desc": "免费下载文献"
+          },
+          {
+            "name": "Sci-Hub③",
+            "url": "https://sci-hub.ee/",
+            "desc": "免费下载文献"
+          },
+          {
+            "name": "Sci-Hub④",
+            "url": "https://www.sci-hub.cat/",
+            "desc": "免费下载文献"
+          },
+          {
+            "name": "Sci-Hub⑤",
+            "url": "https://sci-hub.ren/",
+            "desc": "免费下载文献"
+          },
+          {
+            "name": "Sci-Hub⑥",
+            "url": "https://sci-hub.red/",
+            "desc": "免费下载文献"
+          }
+        ]
+      },
+      {
+        "name": "📚 电子书",
+        "children": [
+          {
+            "name": "安娜的档案",
+            "url": "https://zh.annas-archive.li/",
+            "desc": "包括Z-Library、Library Genesis、Sci-Hub以及更多"
+          },
+          {
+            "name": "Z-Library",
+            "url": "https://zlib.re/ ",
+            "desc": "Z-Library镜像网站"
+          },
+          {
+            "name": "Libgen镜像①",
+            "url": "https://libgen.gl/",
+            "desc": "Library Genesis镜像网站"
+          },
+          {
+            "name": "Libgen镜像②",
+            "url": "https://libgen.bz/",
+            "desc": "Library Genesis镜像网站"
+          },
+          {
+            "name": "Libgen镜像③",
+            "url": "https://libgen.ee",
+            "desc": "Library Genesis镜像网站"
+          },
+          {
+            "name": "鸠摩搜索",
+            "url": "https://www.jiumodiary.com/",
+            "desc": "电子书和文档搜索引擎"
+          }
+        ]
+      },
+      {
+        "name": "📄 专利",
+        "children": [
+          {
+            "name": "谷歌专利镜像",
+            "url": "https://fan.721119.xyz/Alvin9999/https/patents.google.com",
+            "desc": "谷歌专利镜像网站，功能强大且免费的专利检索下载网站"
+          },
+          {
+            "name": "谷歌专利镜像",
+            "url": "https://patents.glgoo.top/",
+            "desc": "谷歌专利镜像网站，功能强大且免费的专利检索下载网站"
+          },
+          {
+            "name": "药物在线",
+            "url": "https://www.drugfuture.com/patent/",
+            "desc": "专利下载，输入专利号免费下载中国专利，美国专利，欧洲专利"
+          },
+          {
+            "name": "中国专利公布公告",
+            "url": "http://epub.cnipa.gov.cn/Index",
+            "desc": "国家知识产权局，中国专利公布公告查询"
+          },
+          {
+            "name": "Espacenet",
+            "url": "https://worldwide.espacenet.com/",
+            "desc": "Espacenet专利检索平台由欧洲专利局（EPO）管理，其数据来自世界90多个国家和地区的1亿多件专利文献。可以检索EP、WO及世界范围内的专利文献，可以进行专利全文说明书的浏览、下载"
+          },
+          {
+            "name": "专利顾如",
+            "url": "https://www.patentguru.com/",
+            "desc": "专利顾如是一款基于海量全球专利，采用全球领先的大数据，云计算，自然语言处理(NLP)和人工智能技术的深度专利技术跟踪平台,同时提供专利检索,专利查询,专利下载,专利分析,竞争监控等服务"
+          }
+        ]
+      },
+      {
+        "name": "🧰 实用工具",
+        "children": [
+          {
+            "name": "justscience",
+            "url": "https://sci.justscience.cn/",
+            "desc": "最新SCI期刊影响因子查询，整理了最新被SCI收录的所有期刊杂志的信息参数，包括期刊出版号，期刊官方投稿网址，影响因子，研究方向，SCI期刊分区，中国作者发表的文章，投稿经验等"
+          },
+          {
+            "name": "LetPub期刊查询",
+            "url": "http://www.letpub.com.cn/index.php?page=journalapp",
+            "desc": "最新SCI期刊影响因子查询，整理了最新被SCI收录的所有期刊杂志的信息参数，包括期刊出版号，期刊官方投稿网址，影响因子，研究方向，SCI期刊分区，中国作者发表的文章，投稿经验等"
+          },
+          {
+            "name": "DeepL翻译",
+            "url": "https://www.deepl.com/zh/translator",
+            "desc": "DeepL是由DeepL GmbH 开发AI翻译工具，支持文本、文档及语音的高精度互译，覆盖100+语言，以自然流畅和保留排版著称。"
+          },
+          {
+            "name": "ChatGPT②",
+            "url": "http://chat5.aiyunos.top/",
+            "desc": "ChatGPT，免费使用，无需注册"
+          },
+          {
+            "name": "ChatGPT③",
+            "url": "https://1.1ai.fun",
+            "desc": "ChatGPT，免费使用，无需注册"
+          }
+        ]
+      },
+      {
+        "name": "📗 标准",
+        "children": [
+          {
+            "name": "国家标准",
+            "url": "https://openstd.samr.gov.cn/",
+            "desc": "国家标准委发布，国家标准全文公开系统，免费下载"
+          },
+          {
+            "name": "企业标准",
+            "url": "https://www.qybz.org.cn/",
+            "desc": "企业标准信息公共服务平台，免费下载"
+          },
+          {
+            "name": "标准网",
+            "url": "https://www.biaozhun.org/",
+            "desc": "标准网，需注册账号，每天免费2篇"
+          },
+          {
+            "name": "UPBZ标准网",
+            "url": "https://www.upbz.net/",
+            "desc": "UPBZ标准网"
+          },
+          {
+            "name": "食品伙伴网",
+            "url": "http://down.foodmate.net/standard/index.html",
+            "desc": "biaozhun8"
+          },
+          {
+            "name": "学兔兔",
+            "url": "http://www.bzfxw.com/",
+            "desc": "免费注册用户每天限制2个文件"
+          }
+        ]
+      }
+    ]
   }
 ]

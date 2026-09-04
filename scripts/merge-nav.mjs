@@ -113,6 +113,7 @@ const BOOKMARK_HTML_SOURCES = [
   ['61c6a8da-2c8b-4aa7-a1f2-389faff65a89_ac3dd64a-bbd3-469e-aaf3-7fdead5c515d_全网AI合集_浏览器书签.html', '全网AI合集'],
   ['2f4aac4d-a97c-419d-8731-85e2e3a4c37d_e1cf7971-6926-42a9-aa1b-6ffd2a7a8732_bookmarks-iLinks备份-小帅同学20260824.html', '小帅同学 iLinks 备份'],
   ['51f4cab6-fceb-4634-bdae-16cb261b3a73_cab35e79-647c-4f51-8df5-3f11eed18851_小帅同学的储物间_浏览器书签.html', '小帅同学的储物间'],
+  ['71e76d41-675a-4228-96e4-cb67332845d2_83248fa3-4051-4aac-a1cd-56c689493896_学术导航_浏览器书签.html', '学术导航'],
 ]
 
 // 读取现有数据 & 建立全局去重集合 & 已有分组名
@@ -197,7 +198,7 @@ for (const [file, label] of BOOKMARK_HTML_SOURCES) {
     console.log('已有分组，跳过:', name)
     continue
   }
-  const g = makeGroup(name, children)
+  const g = makeGroup(name, children, false)
   if (g) {
     newGroups.push(g)
     existingNames.add(g.name)
