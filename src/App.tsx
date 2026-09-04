@@ -36,6 +36,24 @@ function matchQuery(item: BookmarkItem, q: string): boolean {
 
 const GROUP_LABELS: Record<string, string> = { all: '全部站点' }
 
+// 为每个“分类节点”（有 children 的节点）分配稳定 id，用于导航点击后平滑定位到下方内容区
+const catIdMap = new Map<BookmarkItem, string>()
+{
+  let i = 0
+  const walk = (nodes: BookmarkItem[]) => {
+    for (const n of nodes) {
+      if (n.children && n.children.length) {
+        catIdMap.set(n, 'cat-' + ++i)
+        walk(n.children)
+      }
+    }
+  }
+  INITIAL_BOOKMARKS.forEach((g) => walk(g.children || []))
+}
+function catId(node?: BookmarkItem): string | undefined {
+  return node ? catIdMap.get(node) : undefined
+}
+
 export default function App() {
   const allLeaves = useMemo(() => flattenLeaves(INITIAL_BOOKMARKS), [])
   const categoryCount = useMemo(() => {
@@ -130,6 +148,17 @@ export default function App() {
             </button>
           ))}
         </nav>
+
+        {/* 分类手风琴树（固定到头部）：点击父级自动展开其子分类，子分类固定在父级下方 */}
+        <div className="category-bar">
+          <div className="category-bar-inner">
+            {groups
+              .filter((g) => activeGroup === 'all' || g.name === activeGroup)
+              .map((group) => (
+                <GroupNav key={group.name} group={group} />
+              ))}
+          </div>
+        </div>
       </div>
 
       <main className="container">
@@ -247,7 +276,7 @@ function CategoryNode({ node, depth = 1 }: { node: BookmarkItem; depth?: number 
   const subs = kids.filter((c) => c.children && c.children.length)
 
   return (
-    <div className={`category ${depth > 1 ? 'subcategory' : ''}`}>
+    <div id={catId(node)} className={`category ${depth > 1 ? 'subcategory' : ''}`}>
       <h3 className="cat-title">
         <span className="cat-name">{node.name}</span>
         <span className="cat-count">{countLeaves(node)}</span>
@@ -261,6 +290,65 @@ function CategoryNode({ node, depth = 1 }: { node: BookmarkItem; depth?: number 
       )}
       {subs.map((sc, i) => (
         <CategoryNode key={(sc.id || sc.name) + i} node={sc} depth={depth + 1} />
+      ))}
+    </div>
+  )
+}
+
+// ---------- 固定到头部的分类导航（只显示分类，不显示网址模块） ----------
+// 点击父级分类自动展开其子分类（子分类多列排布、固定在父级下方）；叶子分类点击后平滑定位到下方内容区。
+function CategoryNavNode({ node }: { node: BookmarkItem }) {
+  const kids = node.children || []
+  // 无 children ⇒ 是站点，不在分类栏展示（网址模块放到下方内容区）
+  if (!kids.length) return null
+
+  const subCats = kids.filter((k) => k.children && k.children.length)
+  const isLeaf = subCats.length === 0 // 只有站点、没有子分类的“叶子分类”
+  const [open, setOpen] = useState(false)
+
+  const onClick = () => {
+    if (isLeaf) {
+      // 叶子分类：定位到下方对应分类的内容区
+      window.document.getElementById(catId(node) || '')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    } else {
+      setOpen((o) => !o)
+    }
+  }
+
+  return (
+    <div className="nav-branch">
+      <button
+        className={`nav-pill ${open ? 'open' : ''}`}
+        onClick={onClick}
+        aria-expanded={isLeaf ? undefined : open}
+      >
+        {!isLeaf && <span className="nav-caret">{open ? '▾' : '▸'}</span>}
+        <span className="nav-name">{node.name}</span>
+        <span className="nav-count">{countLeaves(node)}</span>
+      </button>
+      {!isLeaf && open && (
+        <div className="nav-children">
+          {kids.map((kid, i) => (
+            <CategoryNavNode key={(kid.id || kid.name) + i} node={kid} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// 一个分组的分类导航
+function GroupNav({ group }: { group: BookmarkItem }) {
+  const kids = group.children || []
+  if (!kids.length) return null
+  return (
+    <div className="nav-group">
+      <span className="nav-group-title">{group.name}</span>
+      {kids.map((child, i) => (
+        <CategoryNavNode key={(child.id || child.name) + i} node={child} />
       ))}
     </div>
   )

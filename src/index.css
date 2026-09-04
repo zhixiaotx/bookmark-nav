@@ -210,6 +210,88 @@ body {
   color: #fff;
 }
 
+/* ---------- 固定栏内的分类导航（只显示分类，多列排布） ---------- */
+.category-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px 14px;
+  max-height: min(58vh, 480px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+/* 关键：所有同级分类 pill 横向多列排布、自动换行，而不是一行一个 */
+.category-bar-inner,
+.nav-children {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+.nav-group {
+  width: 100%;
+  margin-bottom: 6px;
+}
+.nav-group-title {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin: 2px 0 6px;
+}
+.nav-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 500;
+}
+.nav-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.nav-pill.open {
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.nav-caret {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  transition: transform 0.2s;
+}
+.nav-pill.open .nav-caret {
+  transform: rotate(90deg);
+}
+.nav-count {
+  font-size: 0.66rem;
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  color: var(--primary);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+/* 子分类缩进 + 竖线，视觉上归到父级下方 */
+.nav-children {
+  margin: 8px 0 2px 18px;
+  padding-left: 14px;
+  border-left: 2px dashed var(--border);
+}
+
 /* ---------- Container / group ---------- */
 .container {
   max-width: 1280px;
